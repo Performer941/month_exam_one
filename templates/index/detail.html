@@ -40,7 +40,9 @@
             <h3>{{ news.title }}</h3>
             <div class="detail_about clearfix">
                 <span class="time_souce fl">{{ news.create_time }} 来源: {{ news.source }}</span>
-                <span class="comment fr">3</span>
+                {% for comment in comments %}
+                <span class="comment fr" >{{ comment.news_id }}</span>
+                {% endfor %}
             </div>
 
             <p class="summary">
@@ -69,7 +71,9 @@
 
 
         <div class="comment_count">
-            4条评论
+            {% for comment in comments %}
+                {{ comment.news_id }}条评论
+            {% endfor %}
         </div>
 
         <div class="comment_list_con">

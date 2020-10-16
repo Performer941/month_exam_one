@@ -52,3 +52,5 @@ def set_after_request_handle_fuc(app):
         if request.path.startswith("/admin") and not g.user.is_admin:
             # 如果不是管理员，还想访问URL以/admin开始页面，则返回首页
             return redirect(url_for('index_blu.index'))
+
+

@@ -14,12 +14,13 @@ def index():
     # 查询用户是否已经登录
     user_id = session.get("user_id", 0)
     nick_name = session.get("nick_name", "")
+    user = db.session.query(User).filter(User.id == user_id).first()
 
     # 查询分类
     categorys = db.session.query(Category).filter(Category.id != 1).all()
 
     return render_template("index/index.html", clicks_top_6_news=clicks_top_6_news, nick_name=nick_name,
-                           categorys=categorys)
+                           categorys=categorys, user=user)
 
 
 @index_blu.route("/newslist")

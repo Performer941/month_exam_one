@@ -53,6 +53,7 @@ def register():
     # user.password_hash = password  # 未加密的方式，这样容易泄露用户名密码
     user.password_hash = generate_password_hash(password)
     user.mobile = mobile
+    user.avatar_url = "/static/index/images/cat.jpg"
     try:
         db.session.add(user)
         db.session.commit()

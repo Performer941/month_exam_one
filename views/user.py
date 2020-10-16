@@ -2,6 +2,7 @@ import hashlib
 import time
 
 from flask import jsonify, session, request, render_template, redirect, url_for
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from models import db
 from models.index import User, Follow, Category, News
@@ -154,10 +155,10 @@ def user_password():
         })
 
     # 2. 判断旧密码与数据中的当前存储的密码是否相同
-    user = db.session.query(User).filter(User.id == user_id, User.password_hash == old_password).first()
+    user = db.session.query(User).filter(User.id == user_id).first()
 
     # 3. 如果相同，则修改
-    if user:
+    if user and check_password_hash(user.password_hash, old_password):
         user.password_hash = new_password
         db.session.commit()
         ret = {

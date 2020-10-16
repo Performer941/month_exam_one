@@ -64,7 +64,8 @@ def user_count():
         date_str = cur_date.strftime('%Y-%m-%d')
         date_li.append(date_str)
 
-    return render_template("admin/user_count.html", total_count=total_count, month_count=month_count, day_count=day_count, counts_li=counts_li, date_li=date_li)
+    return render_template("admin/user_count.html", total_count=total_count, month_count=month_count,
+                           day_count=day_count, counts_li=counts_li, date_li=date_li)
 
 
 @admin_blu.route("/admin/user_list.html")
@@ -102,10 +103,13 @@ def save_news_review_detail(news_id):
 
     # 提取，审核结果
     action = request.json.get("action")
+
     if action == "accept":
         news.status = 0
     else:
         news.status = -1
+        reason = request.json.get("reason")
+        news.reason = reason
 
     # 保存到数据库
     db.session.commit()
